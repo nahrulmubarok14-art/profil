@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>arrruloo - Media Sosial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 3px solid white;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-img .placeholder {
+            font-size: 40px;
+            color: #667eea;
+        }
+        
+        .username {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .bio {
+            font-size: 16px;
+            opacity: 0.8;
+            margin-bottom: 30px;
+        }
+        
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .link-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .link-item:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .link-icon {
+            font-size: 20px;
+        }
+        
+        .link-text {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .join-text {
+            margin-top: 25px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            font-size: 12px;
+            opacity: 0.6;
+        }
+        
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-img" id="profileImage">
+            <div class="placeholder">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+        
+        <h1 class="username">@arrruloo</h1>
+        <p class="bio">Welcome to my social media links</p>
+        
+        <div class="links">
+            <a href="https://www.instagram.com/arrruloo?igsh=MWFuMGFydjF5cHo5NA==" class="link-item" target="_blank">
+                <div class="link-icon">
+                    <i class="fab fa-instagram"></i>
+                </div>
+                <div class="link-text">Instagram</div>
+            </a>
+            
+            <a href="https://www.tiktok.com/@arulbukangas?is_from_webapp=1&sender_device=pc" class="link-item" target="_blank">
+                <div class="link-icon">
+                    <i class="fab fa-tiktok"></i>
+                </div>
+                <div class="link-text">TikTok</div>
+            </a>
+        </div>
+        
+        <p class="join-text">Follow arrruloo on social media</p>
+        
+        <div class="footer">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Contact</a>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk load foto profil
+        function loadProfileImage() {
+            const profileImage = document.getElementById('profileImage');
+            
+            // Tampilkan loading
+            profileImage.innerHTML = '<div class="loading"></div>';
+            
+            // Coba load foto jika ada
+            const image = new Image();
+            
+            // Coba beberapa kemungkinan nama file
+            const possibleFilenames = [
+                'WhatsApp Image 2025-11-23 at 20.37.50.jpeg',
+                'foto.jpg',
+                'profile.jpg',
+                'arrruloo.jpg',
+                'foto-profile.jpg'
+            ];
+            
+            let currentIndex = 0;
+            
+            function tryNextImage() {
+                if (currentIndex >= possibleFilenames.length) {
+                    // Jika semua file sudah dicoba dan tidak ditemukan
+                    profileImage.innerHTML = '<div class="placeholder"><i class="fas fa-user"></i></div>';
+                    return;
+                }
+                
+                const filename = possibleFilenames[currentIndex];
+                image.src = filename;
+                
+                image.onload = function() {
+                    // Jika foto berhasil dimuat
+                    profileImage.innerHTML = '';
+                    image.style.borderRadius = '50%';
+                    profileImage.appendChild(image);
+                    console.log('Foto ditemukan:', filename);
+                };
+                
+                image.onerror = function() {
+                    // Coba file berikutnya
+                    currentIndex++;
+                    tryNextImage();
+                };
+            }
+            
+            // Mulai mencoba load gambar
+            tryNextImage();
+        }
+        
+        // Panggil fungsi saat halaman dimuat
+        window.addEventListener('load', loadProfileImage);
+
+        // Fungsi untuk upload foto baru
+        function uploadPhoto() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            
+            input.onchange = function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const profileImage = document.getElementById('profileImage');
+                        profileImage.innerHTML = '';
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.borderRadius = '50%';
+                        profileImage.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            
+            input.click();
+        }
+
+        // Klik pada foto profil untuk upload foto baru
+        document.getElementById('profileImage').addEventListener('click', uploadPhoto);
+    </script>
+</body>
+</html>
